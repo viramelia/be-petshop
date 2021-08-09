@@ -10,6 +10,31 @@ use App\Models\Produk;
 
 class ProdukController extends Controller
 {
+    public function allProduk(){
+        $data = Produk::all();
+        
+        return response()->json([
+            'message'=> 'Success get all products',
+            'data'=> $data
+        ], 200);
+    }
+
+    public function produkById(Request $request){
+        $data = Produk::findOrFail($request->id);
+
+        if($data){
+            return response()->json([
+                'message' => 'success to find product',
+                'data' => $data
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'Oops...product not found',
+            ], 404);
+        }
+    }
+
     public function createJnsProduk(Request $request){
         $user = User::findOrFail($request->id_user);
         if($user->role == 'admin'){
@@ -80,7 +105,7 @@ class ProdukController extends Controller
             }
         }
         else{
-            return response()->json(['message'=> 'Oops...bot our authorize'], 400);
+            return response()->json(['message'=> 'Oops...not your authorize'], 400);
         }
     }
 }

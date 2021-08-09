@@ -11,6 +11,10 @@ class Layanan extends Model
 
     protected $table = "layanan";
 
-    protected $fillable = ['nama', 'kategori', 'gambar', 'deskripsi', 'jenis_hewan',
-                            'biaya_layanan', 'bukti_tf', 'berat_hewan'];
+    protected $fillable = ['id_petshop', 'nama', 'kategori', 'gambar', 'deskripsi', 'jenis_hewan',
+                            'biaya_layanan'];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'id_petshop');
+    }
 }

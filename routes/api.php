@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PetshopController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\LayananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,12 @@ Route::post('/auth', [UserController::class, 'login']);
 Route::post('/signup-petshop', [UserController::class, 'regisPetshop']);
 Route::post('/signup-customer', [UserController::class, 'regisCustomer']);
 
+// ALL ACCESS
+Route::get('/produk', [ProdukController::class, 'allProduk']);
+Route::get('/produk/{id}', [ProdukController::class, 'produkById']);
+Route::get('/produk', [LayananController::class, 'allLayanan']);
+Route::get('/produk/{id}', [LayananController::class, 'layananById']);
+
 Route::middleware('auth:api')->group(function(){
     Route::get('/all-petshop', [PetshopController::class, 'allPetshop']);
     Route::post('/verif-petshop', [PetshopController::class, 'verifPetshop']);
@@ -32,6 +39,8 @@ Route::middleware('auth:api')->group(function(){
 
     Route::post('/jenis-produk', [ProdukController::class, 'createJnsProduk']);
     Route::post('/produk', [ProdukController::class, 'createProduk']);
+
+    Route::post('/layanan', [LayananController::class, 'createLayanan']);
 });
 
 // Route::get('home', fn() => 'sapi')->w;
