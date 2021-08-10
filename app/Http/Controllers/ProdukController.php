@@ -35,6 +35,15 @@ class ProdukController extends Controller
         }
     }
 
+    public function getJnsProduk(){
+        $data = JnsProduk::all();
+
+        return response()->json([
+            'message' => 'succedd get all jenis produk',
+            'data' => $data
+        ], 200);
+    }
+
     public function createJnsProduk(Request $request){
         $user = User::findOrFail($request->id_user);
         if($user->role == 'admin'){

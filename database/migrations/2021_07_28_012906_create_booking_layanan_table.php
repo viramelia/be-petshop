@@ -25,7 +25,7 @@ class CreateBookingLayananTable extends Migration
             $table->enum('status', ['terbooking', 'selesai']);
             // not needed
             // $table->string('bukti_tf', 100)->nullable()->change(NULL);
-            $table->string('jenis_hewan', 15);
+            $table->string('jenis_hewan', 15)->nullable()->change(NULL);
             $table->integer('berat_hewan')->nullable()->change(NULL);
             $table->timestamps();
 

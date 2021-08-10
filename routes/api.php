@@ -22,11 +22,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// ALL ACCESS
 Route::post('/auth', [UserController::class, 'login']);
 Route::post('/signup-petshop', [UserController::class, 'regisPetshop']);
 Route::post('/signup-customer', [UserController::class, 'regisCustomer']);
 
-// ALL ACCESS
+Route::get('/jenis-produk', [ProdukController::class, 'getJnsProduk']);
+Route::post('/jenis-produk', [ProdukController::class, 'createJnsProduk']);
+
 Route::get('/produk', [ProdukController::class, 'allProduk']);
 Route::get('/produk/{id}', [ProdukController::class, 'produkById']);
 Route::get('/produk', [LayananController::class, 'allLayanan']);
@@ -37,7 +40,6 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/verif-petshop', [PetshopController::class, 'verifPetshop']);
     Route::get('/all-customer', [PetshopController::class, 'allCustomer']);
 
-    Route::post('/jenis-produk', [ProdukController::class, 'createJnsProduk']);
     Route::post('/produk', [ProdukController::class, 'createProduk']);
 
     Route::post('/layanan', [LayananController::class, 'createLayanan']);

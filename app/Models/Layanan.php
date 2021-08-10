@@ -17,4 +17,8 @@ class Layanan extends Model
     public function user(){
         return $this->belongsTo(User::class, 'id_petshop');
     }
+
+    public function booking(){
+        return $this->hasMany(Layanan::class, 'id_layanan');
+    }
 }
