@@ -23,6 +23,7 @@ class CreateTransaksiTable extends Migration
             $table->string('bukti_tf')->nullable()->change();
             $table->dateTime('tgl_tf', $precision=0)->nullable()->change();
             $table->integer('total_harga');
+            $table->string('bukti_tf', 255);
             $table->enum('status', ['belum', 'lunas', 'pengiriman', 'diterima']);
             $table->timestamps();
 

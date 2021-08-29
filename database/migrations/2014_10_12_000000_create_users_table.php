@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             // PETSHOP
             $table->time('jam_buka')->nullable()->default(NULL);
             $table->time('jam_tutup')->nullable()->default(NULL);
-            $table->enum('nama_bank', ['bri', 'bca', 'bni', 'mandiri', 'sulselbar'])->nullable()->default(NULL);
+            $table->enum('nama_bank', ['bri', 'bca', 'bni', 'mandiri', 'btn', 'sulselbar'])->nullable()->default(NULL);
             $table->string('no_rek', 60)->nullable()->default(NULL);
             $table->enum('status', ['non', 'aktif'])->nullable()->default(NULL);
             $table->timestamps();

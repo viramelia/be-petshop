@@ -9,33 +9,9 @@ use App\Models\User;
 
 class LayananController extends Controller
 {
-    public function allLayanan(){
-        $data = Layanan::all();
-
-        return response()->json([
-            'message' => 'All data success to get',
-            'data' => $data,
-        ], 200);
-    }
-
-    public function layananById(Request $request){
-        $data = Layanan::findOrFail($request->id);
-
-        if($data){
-            return response()->json([
-                'message' => 'succedd to get layanan',
-                'data' => $data
-            ], 200);
-        }
-        else{
-            return response()->json([
-                'message'=> 'Oops...layanan not found',
-            ], 404);
-        }
-    }
-
+    
     public function createLayanan(Request $request){
-        $user = User::findOrfail($request->id_petshop);
+        $user = User::find($request->id);
 
         if($user->role == 'petshop'){
             $rules = array(
@@ -46,6 +22,7 @@ class LayananController extends Controller
                 'jenis_hewan'=> 'required',
                 'biaya_layanan'=> 'required|integer'
             );
+            
             $validated = Validator::make($request->all(), $rules);
     
             if($validated->fails()){
@@ -54,7 +31,7 @@ class LayananController extends Controller
             else{
                 $namaFoto = $request->nama.time().'.'.$request->file('gambar')->extension();
                 $foto = $request->file('gambar')
-                        ->storeAs('layanan', $namaFoto);
+                        ->storeAs('public/layanan', $namaFoto);
                 $layanan = Layanan::create([
                     'id_petshop'=> $user->id,
                     'nama'=> $request->nama,
@@ -74,5 +51,56 @@ class LayananController extends Controller
         else{
             return response()->json(['message'=> 'Oops...not your authorize'], 400);
         }
+    }
+
+    public function allLayanan($jumlah){
+        $data = Layanan::paginate($jumlah);
+
+        return response()->json([
+            'message' => 'All data success to get',
+            'data' => $data,
+        ], 200);
+    }
+
+    public function layananById(Request $request){
+        $data = Layanan::find($request->id);
+
+        if($data){
+            $data->load('petshop');
+            return response()->json([
+                'message' => 'succedd to get layanan',
+                'data' => $data
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'message'=> 'Oops...layanan not found',
+            ], 404);
+        }
+    }
+
+    public function layananByPetshop($petshop){
+        $data = Layanan::where('id_petshop', '=', $petshop)->paginate(4);
+        $data->load('petshop');
+
+        return response()->json([
+            'message' => 'succedd get layanan petshop',
+            'data' => $data
+        ], 200);
+    }
+
+    public function cariLayanan($layanan){
+        $data = Layanan::where('nama', 'LIKE', '%'.$layanan.'%')->get();
+
+        return response()->json([
+            'data' => $data
+        ], 200);
+    }
+
+    public function image($fileName){
+        $tes = asset('storage/layanan/'.$fileName);
+        return response()->json([
+            'gambar' => $tes
+        ], 200);
     }
 }

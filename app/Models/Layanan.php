@@ -14,11 +14,15 @@ class Layanan extends Model
     protected $fillable = ['id_petshop', 'nama', 'kategori', 'gambar', 'deskripsi', 'jenis_hewan',
                             'biaya_layanan'];
 
-    public function user(){
-        return $this->belongsTo(User::class, 'id_petshop');
+    public function petshop(){
+        return $this->belongsTo(User::class,'id_petshop');
+    }
+
+    public function customer(){
+        return $this->belongsTo(User::class, 'id_customer');
     }
 
     public function booking(){
-        return $this->hasMany(Layanan::class, 'id_layanan');
+        return $this->hasMany(BookingLayanan::class, 'id_layanan');
     }
 }

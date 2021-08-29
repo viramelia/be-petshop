@@ -23,6 +23,7 @@ class CreateBookingLayananTable extends Migration
             $table->time('jam_selesai');
             $table->enum('jenis_transaksi', ['online', 'offline']);
             $table->enum('status', ['terbooking', 'selesai']);
+            $table->integer('biaya')->nullable()->change(NULL);
             // not needed
             // $table->string('bukti_tf', 100)->nullable()->change(NULL);
             $table->string('jenis_hewan', 15)->nullable()->change(NULL);

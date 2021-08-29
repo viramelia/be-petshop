@@ -13,7 +13,7 @@ class BookingLayanan extends Model
 
     protected $fillable = ['id_petshop', 'id_customer', 'id_layanan', 'tgl_booking', 
                             'jam_mulai', 'jam_selesai', 'jenis_transaksi', 'jenis_hewan',
-                            'status'];
+                            'berat_hewan', 'status', 'biaya'];
     
     public function petshop(){
         return $this->belongsTo(User::class, 'id_petshop');
